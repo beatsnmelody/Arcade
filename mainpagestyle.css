@@ -1,0 +1,25 @@
+#board{
+    display: grid;
+    grid-template-columns: repeat(50, 8px);
+    grid-template-rows: repeat(50, 8px);
+    width: 400px;
+    height: 400px;
+    background-color: rgb(53, 0, 53);
+}
+
+body{
+    background-color: pink;
+    background-image: url("fleecy bg 2.jpg");
+}
+
+.snk{
+    background-color: rgb(244, 250, 235);
+    width: 8px;
+    height: 8px;
+}
+
+.appl{
+    background-color: magenta;
+    width: 8px;
+    height: 8px;
+}
