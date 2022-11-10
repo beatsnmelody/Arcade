@@ -39,6 +39,20 @@ function makeSnake(){
     let snk = document.createElement("div");
     snk.classList.add("snk");
     board.appendChild(snk);
+    makeSnake.addEventListener("keydown", function(snake){
+    if (e.keyCode === 38){
+        //up arrow
+
+    } else if (e.keyCode === '40') {
+        // down arrow
+    }
+    else if (e.keyCode === '37') {
+       // left arrow
+    }
+    else if (e.keyCode === '39') {
+       // right arrow
+    }
+    })
     for (i=0; i=gameState.snake.length; i++){
         snake.push (gameState.snake);
     }
