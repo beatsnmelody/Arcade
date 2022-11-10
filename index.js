@@ -19,41 +19,45 @@
 
 const render = () => {
 
-    const gameState = {
-        snake: snake,
-        apple: [11, 8]
-    }
-    
     const board = document.getElementById("board");
+
+    const gameState = {
+        snake: [],
+        apple: Math.floor(Math.random() * board.length)
+    }
     
     board.style.gridColumnStart = 0;
     board.style.gridRowStart = 0;
     board.style.gridColumnEnd = 50;
     board.style.gridRowEnd = 50;
 
+    let snk = document.createElement("div");
+    snk.classList.add("snk");
+    board.appendChild(snk);
+
 function makeSnake(){
     let snk = document.createElement("div");
     snk.classList.add("snk");
-    let snake = [];
-    for (i=0; i=snake.length; i++){
-        snake.push (snake);
+    board.appendChild(snk);
+    for (i=0; i=gameState.snake.length; i++){
+        snake.push (gameState.snake);
     }
-    setTimeout(snake, 5000);
-    console.log(snake)
-    return snake
+    //keyup, keydown, positioning
+    setTimeout(gameState.snake, 5000);
+    // console.log(snake)
+    // return snake
 }
 
 function applePowerup(){
     let appl = document.createElement("div");
     appl.classList.add("appl");
     board.appendChild(appl);
-    const apple = Math.floor(Math.random() * board.length);
-    board[apple].classList.toggle("appl");
+    board[gameState.apple].classList.toggle("appl");
     applePowerup.addEventListener("snake", function(){
         makeSnake()
     })
-    console.log(apple)
-    return apple
+    // console.log(apple)
+    // return apple
 }
 
 start.addEventListener("click", function(){
@@ -67,3 +71,7 @@ startover.addEventListener("click", function(){
 })
 
 }
+
+render()
+
+console.log("hi!")
