@@ -17,47 +17,63 @@
 
 //grid row start
 
+window.addEventListener("keydown", (event) => {
+    console.log(event, event.key)
+  });
+
+
 const render = () => {
 
     const board = document.getElementById("board");
+    const start = document.getElementById("start");
+    const startover = document.getElementById("startover");
 
     const gameState = {
         snake: [],
         apple: Math.floor(Math.random() * board.length)
     }
-    
+
     board.style.gridColumnStart = 0;
     board.style.gridRowStart = 0;
     board.style.gridColumnEnd = 50;
     board.style.gridRowEnd = 50;
 
-    let snk = document.createElement("div");
-    snk.classList.add("snk");
-    board.appendChild(snk);
+    // let snk = document.createElement("div");
+    // snk.classList.add("snk");
+    // board.appendChild(snk);
+    // setTimeout(gameState.snake, 5000);
+
+    // let appl = document.createElement("div");
+    // appl.classList.add("appl");
+    // board.appendChild(appl);
 
 function makeSnake(){
     let snk = document.createElement("div");
     snk.classList.add("snk");
     board.appendChild(snk);
-    makeSnake.addEventListener("keydown", function(snake){
-    if (e.keyCode === 38){
-        //up arrow
-
-    } else if (e.keyCode === '40') {
-        // down arrow
-    }
-    else if (e.keyCode === '37') {
-       // left arrow
-    }
-    else if (e.keyCode === '39') {
-       // right arrow
-    }
-    })
-    for (i=0; i=gameState.snake.length; i++){
-        snake.push (gameState.snake);
-    }
-    //keyup, keydown, positioning
-    setTimeout(gameState.snake, 5000);
+     // for (i=0; i=gameState.snake.length; i++){
+    //     snk.push (gameState.snake);
+    // }
+    snk.addEventListener("keydown", (event) => {
+        console.log(event, event.key)
+        if (e.key === 38){
+            moveUp(8, 8);
+            //up arrow
+    
+        } else if (e.key === 40) {
+            moveDown(8, 8);
+            // down arrow
+        }
+        else if (e.key === 37) {
+            moveLeft(8, 8);
+           // left arrow
+        }
+        else if (e.key === 39) {
+            moveRight(8, 8);
+           // right arrow
+        }
+    });
+    // keyup, keydown, positioning
     // console.log(snake)
     // return snake
 }
@@ -66,8 +82,8 @@ function applePowerup(){
     let appl = document.createElement("div");
     appl.classList.add("appl");
     board.appendChild(appl);
-    board[gameState.apple].classList.toggle("appl");
-    applePowerup.addEventListener("snake", function(){
+    // board[gameState.apple].classList.toggle("appl");
+    appl.addEventListener("snake", function(){
         makeSnake()
     })
     // console.log(apple)
@@ -80,12 +96,9 @@ start.addEventListener("click", function(){
 })
 
 startover.addEventListener("click", function(){
-    makeSnake()
-    applePowerup()
+    gameState();
 })
 
 }
 
 render()
-
-console.log("hi!")
