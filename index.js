@@ -17,10 +17,6 @@
 
 //grid row start
 
-window.addEventListener("keydown", (event) => {
-    console.log(event, event.key)
-  });
-
 
 const render = () => {
 
@@ -47,58 +43,61 @@ const render = () => {
     // appl.classList.add("appl");
     // board.appendChild(appl);
 
-function makeSnake(){
-    let snk = document.createElement("div");
-    snk.classList.add("snk");
-    board.appendChild(snk);
-     // for (i=0; i=gameState.snake.length; i++){
-    //     snk.push (gameState.snake);
-    // }
-    snk.addEventListener("keydown", (event) => {
-        console.log(event, event.key)
-        if (e.key === 38){
-            moveUp(8, 8);
-            //up arrow
-    
-        } else if (e.key === 40) {
-            moveDown(8, 8);
-            // down arrow
+    function makeSnake() {
+        let snk = document.createElement("div");
+        snk.classList.add("snk");
+        board.appendChild(snk);
+        for (i = 0; i = gameState.snake.length; i++) {
+            snk.push(gameState.snake);
         }
-        else if (e.key === 37) {
-            moveLeft(8, 8);
-           // left arrow
-        }
-        else if (e.key === 39) {
-            moveRight(8, 8);
-           // right arrow
-        }
-    });
-    // keyup, keydown, positioning
-    // console.log(snake)
-    // return snake
-}
+        // keyup, keydown, positioning
+        // console.log(snake)
+        // return snake
+    }
 
-function applePowerup(){
-    let appl = document.createElement("div");
-    appl.classList.add("appl");
-    board.appendChild(appl);
-    // board[gameState.apple].classList.toggle("appl");
-    appl.addEventListener("snake", function(){
+    function applePowerup() {
+        let appl = document.createElement("div");
+        appl.classList.add("appl");
+        board.appendChild(appl);
+        // board[gameState.apple].classList.toggle("appl");
+        appl.addEventListener("snake", function () {
+            makeSnake()
+        })
+        // console.log(apple)
+        // return apple
+    }
+
+    start.addEventListener("click", function () {
         makeSnake()
+        applePowerup()
     })
-    // console.log(apple)
-    // return apple
-}
 
-start.addEventListener("click", function(){
-    makeSnake()
-    applePowerup()
-})
-
-startover.addEventListener("click", function(){
-    gameState();
-})
+    startover.addEventListener("click", function () {
+        gameState();
+    })
 
 }
 
-render()
+window.addEventListener("keydown", (event) => {
+    console.log(event, event.key)
+    if (event.key === 38) {
+        moveBy(0, 1);
+        //up arrow
+
+    } else if (event.key === 40) {
+        moveBy(1, 0);
+        // down arrow
+    }
+    else if (event.key === 37) {
+        moveBy(0, -1);
+        // left arrow
+    }
+    else if (event.key === 39) {
+        moveBy(-1, 0);
+        // right arrow
+    }
+});
+
+setInterval(() => {
+    render()
+}, 1000)
