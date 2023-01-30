@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
     font-family: "Honeybee";
     src: url(fonts\honeybee-font/Honeybeeregular-MG0p.ttf);
 }
@@ -24,7 +24,7 @@ body{
     background-image: url("fleecy bg 2.jpg");
 }
 
-.snk{
+.snk, #se{
     background-color: rgb(244, 250, 235);
     width: 8px;
     height: 8px;
@@ -50,4 +50,30 @@ body{
     background-color: magenta;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 10px;
-}
+} */
+
+#se{
+    border: 1px solid red;
+    background-color:red;
+    width: 100px;
+    height: 100px;
+    position: relative;
+
+  }
+
+
+  #board{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    width: 500px;
+    height: 400px;
+    border: 1px solid #000;
+  }
+
+  .cell{
+    
+    width: 100px;
+    height: 100px;
+
+  }
