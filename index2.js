@@ -5,6 +5,11 @@ const appl = document.getElementById("apl")
 const start = document.getElementById("start");
 const startover = document.getElementById("startover");
 
+const gameState = {
+  snake: [],
+  apple: Math.floor(Math.random() * board.length)
+}
+
 window.addEventListener('load', (e) => {
   snk.style.left = 0;
   snk.style.top = 0;
@@ -24,7 +29,9 @@ function makeBoard() {
   }
 }
 
-makeBoard()
+makeBoard();
+
+function makeSnake() {
 
 bodyContainer.addEventListener('keydown', (e) => {
 
@@ -75,7 +82,24 @@ bodyContainer.addEventListener('keydown', (e) => {
       break;
   }
 });
+}
 
 function applePowerup() {
-  
+  board.appendChild(appl);
+  Math.floor(Math.random() * board.length)
+}
+
+function startGame(){
+  start.addEventListener('click', () => {
+    console.log("here")
+    makeSnake();
+    applePowerup();
+  })
+}
+
+function startOver(){
+  startover.addEventListener('click', () => {
+    makeSnake();
+    applePowerup();
+  })
 }
