@@ -57,8 +57,7 @@ body{
     background-image: url("fleecy bg 2.jpg");
 }
 
-#se{
-    border: 1px solid rgb(255, 255, 255);
+.se{
     background-color:rgb(255, 255, 255);
     width: 8px;
     height: 8px;
@@ -66,17 +65,18 @@ body{
 
   }
 
-  #appl {
-    color: magenta;
+  #apl {
+    background-color: magenta;
     width: 8px;
     height: 8px;
   }
 
 
   #board{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 0;
+    grid-template-columns: repeat(32, 8px);
+    grid-template-rows: repeat(32, 8px);
     width: 256px;
     height: 256px;
     border: 8px solid rgb(90, 82, 162);

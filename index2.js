@@ -1,105 +1,98 @@
 let bodyContainer = document.body;
-const snk = document.getElementById("se");
+const snk = document.getElementsByClassName("se")[0];
 const board = document.getElementById("board");
-const appl = document.getElementById("apl")
-const start = document.getElementById("start");
-const startover = document.getElementById("startover");
-
-const gameState = {
-  snake: [],
-  apple: Math.floor(Math.random() * board.length)
-}
-
-window.addEventListener('load', (e) => {
-  snk.style.left = 0;
-  snk.style.top = 0;
-})
-
-let startNumber = 8;
-
-
-
-function makeBoard() {
-  for (let i = 0; i <= 8; i++) {
-    let createBoard = document.createElement("div")
-    createBoard.classList.add("cell")
-    board.appendChild(createBoard)
-    //console.log("createBoard")
-
-  }
-}
-
-makeBoard();
-
-function makeSnake() {
+const boardSize = 32;
+const appl = document.getElementById("apl");
+let snkx = 0;
+let snky = 0;
+let scoreDisplay = document.getElementById("scoreDisplay");
+let score = 0;
+let directionX = 0;
+let directionY = 0;
+let appleX = 0;
+let appleY = 0;
+let gameOver = false;
 
 bodyContainer.addEventListener('keydown', (e) => {
 
   switch (e.key) {
     case "Down": // IE/Edge specific value
     case "ArrowDown":
-      console.log(parseInt(snk.style.top))
-      if (parseInt(snk.style.top) < 256) {
-        snk.style.top = parseInt(snk.style.top) + 8 + 'px';
-      } else {
-        console.log('you hit the edge')
-      }
+      directionY = 1;
+      directionX = 0;
+  }
 
-      break;
-    }
-    
   switch (e.key) {
     case "Up":
     case "ArrowUp":
-      console.log(parseInt(snk.style.top))
-      if (parseInt(snk.style.top) < 256) {
-        snk.style.top = parseInt(snk.style.top) + -8 + 'px';
-      } else {
-        console.log('you hit the edge')
-      }
-      break;
-    }
-    switch (e.key) {
-      case "Left":
-      case "ArrowLeft":
-      console.log(parseInt(snk.style.left))
-      if (parseInt(snk.style.left) < 256) {
-        snk.style.left = parseInt(snk.style.left) + -8 + 'px';
-      } else {
-        console.log('you hit the edge')
-      }
-      break;
-    }
-    switch (e.key) {
-      case "Right":
-      case "ArrowRight":
-      console.log(parseInt(snk.style.left))
-      if (parseInt(snk.style.left) < 256) {
-        snk.style.left = parseInt(snk.style.left) + 8 + 'px';
-      } else {
-        console.log('you hit the edge')
-      }
-      break;
+      directionY = -1;
+      directionX = 0;
+  }
+  switch (e.key) {
+    case "Left":
+    case "ArrowLeft":
+      directionX = -1;
+      directionY = 0;
+  }
+  switch (e.key) {
+    case "Right":
+    case "ArrowRight":
+      directionX = 1;
+      directionY = 0;
   }
 });
+
+function applePowerupSpawn() {
+  appleX = Math.floor(Math.random() * boardSize);
+  appleY = Math.floor(Math.random() * boardSize);
+  appl.style.gridRow = appleY;
+  appl.style.gridColumn = appleX;
 }
 
-function applePowerup() {
-  board.appendChild(appl);
-  Math.floor(Math.random() * board.length)
+function eatApple() {
+  if (snk.classList.contains("apl")) {
+    snk.classList.remove("apl");
+    snk.classList.add("se");
+    snk.push(1, 1)
+    applePowerupSpawn();
+    score++;
+    clearInterval(interval);
+  }
 }
 
-function startGame(){
-  start.addEventListener('click', () => {
-    console.log("here")
-    makeSnake();
-    applePowerup();
-  })
+function gameLoop() {
+  if (gameOver) { 
+    return;
+  }
+  snkx += directionX
+  snky += directionY
+  if (snky < 0 || snky > 32 || snkx < 0 || snkx > 32) {
+    alert("You lose!");
+    gameOver = true;
+    return;
+  }
+  snk.style.gridRow = snky
+  snk.style.gridColumn = snkx
+  if (snkx === appleX && snky === appleY){
+    score++;
+    applePowerupSpawn();
+  }
+  scoreDisplay.innerText = `Your score is: ${score}`
 }
 
-function startOver(){
-  startover.addEventListener('click', () => {
-    makeSnake();
-    applePowerup();
-  })
-}
+applePowerupSpawn();
+
+setInterval(gameLoop, 300);
+
+// const btn = document.getElementById("start");
+// btn.addEventListener("click", function () {
+//   makeSnake();
+//   applePowerup();
+//   scoreDisplay.innerHtml = score;
+// });
+
+// const btn2 = document.getElementById("startover")
+// btn2.addEventListener('click', () => {
+//     makeSnake();
+//     applePowerup();
+// });
