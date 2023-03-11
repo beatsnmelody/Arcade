@@ -3,14 +3,15 @@ const snk = document.getElementsByClassName("se")[0];
 const board = document.getElementById("board");
 const boardSize = 32;
 const appl = document.getElementById("apl");
-let snkx = 0;
-let snky = 0;
+let snkx = 16;
+let snky = 16;
 let scoreDisplay = document.getElementById("scoreDisplay");
 let score = 0;
-let directionX = 0;
+let directionX = 1;
 let directionY = 0;
 let appleX = 0;
 let appleY = 0;
+let difficulty = 300;
 let gameOver = false;
 
 bodyContainer.addEventListener('keydown', (e) => {
@@ -49,15 +50,19 @@ function applePowerupSpawn() {
   appl.style.gridColumn = appleX;
 }
 
-function eatApple() {
-  if (snk.classList.contains("apl")) {
-    snk.classList.remove("apl");
-    snk.classList.add("se");
-    snk.push(1, 1)
-    applePowerupSpawn();
-    score++;
-    clearInterval(interval);
-  }
+function reset () {
+  snkx = 16;
+  snky = 16;
+  directionX = 0;
+  directionY = 0;
+  snk.style.gridRow = 16;
+  snk.style.gridColumn = 16;
+  applePowerupSpawn();
+  btn.disabled = false;
+  selector.disabled = false;
+  gameOver = false;
+  score = 0;
+  scoreDisplay.innerText = `Your score is: ${score}`
 }
 
 function gameLoop() {
@@ -66,9 +71,11 @@ function gameLoop() {
   }
   snkx += directionX
   snky += directionY
+  console.log(directionX, directionY)
   if (snky < 0 || snky > 32 || snkx < 0 || snkx > 32) {
-    alert("You lose!");
     gameOver = true;
+    alert(`You lose! You got to ${score}, great job!`);
+    reset();
     return;
   }
   snk.style.gridRow = snky
@@ -80,19 +87,15 @@ function gameLoop() {
   scoreDisplay.innerText = `Your score is: ${score}`
 }
 
-applePowerupSpawn();
+const selector = document.getElementById("select");
+selector.addEventListener("change", function (e) {
+  difficulty = Number(e.target.value);
+});
 
-setInterval(gameLoop, 300);
-
-// const btn = document.getElementById("start");
-// btn.addEventListener("click", function () {
-//   makeSnake();
-//   applePowerup();
-//   scoreDisplay.innerHtml = score;
-// });
-
-// const btn2 = document.getElementById("startover")
-// btn2.addEventListener('click', () => {
-//     makeSnake();
-//     applePowerup();
-// });
+const btn = document.getElementById("start");
+btn.addEventListener("click", function () {
+  setInterval(gameLoop, difficulty);
+  applePowerupSpawn();
+  btn.disabled = true;
+  selector.disabled = true;
+});
